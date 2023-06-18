@@ -18,24 +18,22 @@ function initMap() {
 	{lat: 33.56, lng: -101.87 },
 
   ];
-*/
+
 
   const center = new google.maps.LatLngBounds();
 
   for (i = 0; i < flightPlanCoordinates.length; i++) {
   	center.extend(new google.maps.LatLng(flightPlanCoordinates[i]))
   }
-
+*/
 
   const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 2,
-    center: center.getCenter(),
+    zoom: 3,
+    center: {lat: 51.50, lng: -0.12},//center.getCenter(),
     mapTypeId: "roadmap",
   });
 
-    // Create the markers.
-  flightPlanCoordinates.forEach(DrawMarkers)
-  flightPlanCoordinates1.forEach(DrawMarkers1)
+
 
 
 function DrawMarkers(position, i) {
@@ -49,37 +47,38 @@ function DrawMarkers(position, i) {
 	marker.setMap(map)
 }
 
-function DrawMarkers1(position, i) {
-    const marker = new google.maps.Marker({
-          position: position,
-          title: i.toString(),
-          label: i.toString(),
-          optimized: true,
-        })
-
-	marker.setMap(map)
-}
-
+function drawLopyline(flightPlanCoordinates)
+{
+  const randomColor = Math.floor(Math.random()*16777215).toString(16);
 
   const flightPath = new google.maps.Polyline({
     path: flightPlanCoordinates,
     geodesic: true,
-    strokeColor: "#FFFFFF",
+    strokeColor: "#" + randomColor,
     strokeOpacity: 1.0,
     strokeWeight: 5,
   });
 
   flightPath.setMap(map);
+}
 
-  const flightPath1 = new google.maps.Polyline({
-    path: flightPlanCoordinates1,
-    geodesic: true,
-    strokeColor: "#FF0000",
-    strokeOpacity: 1.0,
-    strokeWeight: 5,
-  });
+function loopArrayIN(traceRT, index, arr) {
+    drawLopyline(traceRT)
+    traceRT.forEach(DrawMarkers)
+}
 
-  flightPath1.setMap(map);
+// Using for...of loop
+const obj = { a: 5, b: 7, c: 9 }
+for (const [key, value] of Object.entries(jsonIN)) {
+  loopArrayIN(value)
+}
+
+
+//  jsonIN.forEach(loopArrayIN())
+    // Create the markers.
+//  flightPlanCoordinates.forEach(DrawMarkers)
+
+
 }
 
 

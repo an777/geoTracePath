@@ -16,9 +16,15 @@ for ip in listIP:
         continue
 
     resp = DbIpCity.get(ip, api_key="free")
-    if (save_lat != resp.latitude) or (save_lng != resp.longitude):
-        print("{{lat: {}, lng: {} }},".format(resp.latitude, resp.longitude))
-        save_lat = resp.latitude
-        save_lng = resp.longitude
 
+    ip_lat = resp.latitude
+    ip_lng = resp.longitude
 
+    if (ip_lng == "None") or (ip_lat == "None"):
+        ip_lat = 0
+        ip_lng = 0
+
+    if (save_lat != ip_lat) or (save_lng != ip_lng):
+        print(f"{{lat: {ip_lat:.3f}, lng: {ip_lng:.3f} }},")
+        save_lat = ip_lat
+        save_lng = ip_lng
