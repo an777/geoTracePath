@@ -20,10 +20,11 @@ for ip in listIP:
     ip_lat = resp.latitude
     ip_lng = resp.longitude
 
-    if (ip_lng == "None") or (ip_lat == "None"):
+    if (ip_lng == None) or (ip_lat == None):
         ip_lat = 0
         ip_lng = 0
 
+    #print(ip_lat,ip_lng)
     if (save_lat != ip_lat) or (save_lng != ip_lng):
         print(f"{{lat: {ip_lat:.3f}, lng: {ip_lng:.3f} }},")
         save_lat = ip_lat

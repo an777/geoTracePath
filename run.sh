@@ -7,10 +7,12 @@ echo 'var jsonIN = {' > $OUT
 
 #traceroute -n yahoo.com | awk '(NR>1) {print $2}' | python ./getGeoFromIP.py
 
+echo "Processing..."
 
 while read line; do
 # reading each line
 
+echo $line
 echo "\"$line\" :  [" >> $OUT
 traceroute -n $line | awk '(NR>1) {print $2}' | python ./getGeoFromIP.py >> $OUT
 echo "]," >>$OUT
